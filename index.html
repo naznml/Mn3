@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дафт Р. Менеджмент | КТ дайындық</title>
+
+  <style>
+    :root {
+      --bg: #f6f4ff;
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #1f1b2e;
+      --muted: #6d6780;
+      --primary: #6f4df6;
+      --primary-dark: #4f32c9;
+      --secondary: #ff8fc7;
+      --accent: #36c7b7;
+      --good: #21a67a;
+      --bad: #e05263;
+      --line: rgba(111, 77, 246, 0.16);
+      --shadow: 0 18px 45px rgba(52, 38, 118, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 143, 199, 0.28), transparent 30%),
+        radial-gradient(circle at top right, rgba(54, 199, 183, 0.22), transparent 32%),
+        linear-gradient(135deg, #f7f3ff 0%, #f9fbff 48%, #fff6fb 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 80px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 26px rgba(52, 38, 118, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      box-shadow: 0 12px 22px rgba(111, 77, 246, 0.22);
+      flex: 0 0 auto;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-top: 2px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .mini-link {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--primary-dark);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 750;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .mini-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(111, 77, 246, 0.15);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: 42px;
+      background:
+        linear-gradient(135deg, rgba(111, 77, 246, 0.94), rgba(79, 50, 201, 0.96)),
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.26), transparent 28%);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -90px;
+      bottom: -130px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 840px;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 17px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+      max-width: 830px;
+    }
+
+    .hero-stat {
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+    }
+
+    .section {
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 34px rgba(52, 38, 118, 0.08);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      color: var(--primary-dark);
+      font-weight: 850;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(23px, 3vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .section-desc {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 780px;
+      font-size: 15px;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .chapter-card {
+      min-height: 148px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.82));
+      border: 1px solid rgba(111, 77, 246, 0.16);
+      box-shadow: 0 12px 24px rgba(52, 38, 118, 0.07);
+      transition: 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(111, 77, 246, 0.34);
+      box-shadow: 0 18px 34px rgba(52, 38, 118, 0.14);
+    }
+
+    .chapter-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: rgba(111, 77, 246, 0.12);
+      color: var(--primary-dark);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .chapter-card h3 {
+      margin: 0;
+      font-size: 15.5px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .chapter-card span {
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 650;
+    }
+
+    .content-block {
+      margin-top: 26px;
+      padding: 26px;
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 32px rgba(52, 38, 118, 0.08);
+    }
+
+    .content-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .content-subtitle {
+      margin: 8px 0 20px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .theory-box {
+      margin: 16px 0;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(111, 77, 246, 0.07);
+      border: 1px solid rgba(111, 77, 246, 0.13);
+    }
+
+    .theory-box h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .theory-box p,
+    .theory-box li {
+      color: #3a344d;
+      font-size: 15px;
+    }
+
+    .test-card {
+      margin: 16px 0;
+      padding: 18px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid rgba(111, 77, 246, 0.14);
+      box-shadow: 0 8px 22px rgba(52, 38, 118, 0.06);
+    }
+
+    .question {
+      font-weight: 850;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(111, 77, 246, 0.12);
+      background: rgba(247, 244, 255, 0.7);
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-size: 14.5px;
+    }
+
+    .option:hover {
+      border-color: rgba(111, 77, 246, 0.32);
+      background: rgba(111, 77, 246, 0.08);
+    }
+
+    .option input {
+      margin-top: 3px;
+      accent-color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    .option.correct {
+      border-color: rgba(33, 166, 122, 0.55);
+      background: rgba(33, 166, 122, 0.12);
+      color: #0d654b;
+      font-weight: 800;
+    }
+
+    .option.wrong {
+      border-color: rgba(224, 82, 99, 0.45);
+      background: rgba(224, 82, 99, 0.09);
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 12px;
+      padding: 13px 14px;
+      border-left: 4px solid var(--primary);
+      border-radius: 14px;
+      background: rgba(111, 77, 246, 0.08);
+      color: #37314b;
+      font-size: 14.5px;
+    }
+
+    .test-card.checked .explanation {
+      display: block;
+    }
+
+    .check-btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-weight: 850;
+      box-shadow: 0 12px 26px rgba(111, 77, 246, 0.22);
+      transition: 0.2s ease;
+      margin-top: 12px;
+    }
+
+    .check-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(111, 77, 246, 0.28);
+    }
+
+    .section-result {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(54, 199, 183, 0.11);
+      border: 1px solid rgba(54, 199, 183, 0.22);
+      color: #12665d;
+      font-weight: 800;
+    }
+
+    .section-result.show {
+      display: block;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      border: 1px solid rgba(111, 77, 246, 0.2);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      font-weight: 900;
+      box-shadow: 0 14px 30px rgba(111, 77, 246, 0.28);
+      transition: 0.2s ease;
+    }
+
+    .to-top:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 980px) {
+      .chapter-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 18px, 1180px);
+        padding-top: 12px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 28px 22px;
+        border-radius: 26px;
+      }
+
+      .section {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .chapter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .chapter-card {
+        min-height: 132px;
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .chapter-card h3 {
+        font-size: 13.8px;
+      }
+
+      .content-block {
+        padding: 18px;
+        border-radius: 22px;
+      }
+
+      .test-card {
+        padding: 15px;
+      }
+
+      .option {
+        font-size: 13.8px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .chapter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-link {
+        font-size: 12.5px;
+        padding: 8px 10px;
+      }
+
+      .to-top {
+        width: 44px;
+        height: 44px;
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a id="top"></a>
+
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">D</div>
+        <div class="brand-text">
+          <strong>Дафт Р. Менеджмент</strong>
+          <span>КТ форматына арналған дайындық сайты</span>
+        </div>
+      </div>
+
+      <nav class="top-actions">
+        <a class="mini-link" href="#chapters">22 тарау</a>
+        <a class="mini-link" href="#chapter-1">Бастау</a>
+        <a class="mini-link" href="#sources">Дереккөз</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="badge-row">
+          <span class="badge">Менеджмент</span>
+          <span class="badge">КТ дайындық</span>
+          <span class="badge">22 тарау</span>
+        </div>
+
+        <h1>Дафт Р. “Менеджмент” бойынша интерактивті дайындық</h1>
+
+        <p>
+          Бұл сайт менеджмент пәнінен КТ форматына жақын дайындық жасауға арналған.
+          Әр тарауда теориялық тірек ұғымдар, негізгі терминдер және жабық тест тапсырмалары беріледі.
+        </p>
+
+        <div class="hero-grid">
+          <div class="hero-stat">
+            <strong>22</strong>
+            <span>кітап тарауы бойынша құрылым</span>
+          </div>
+          <div class="hero-stat">
+            <strong>5</strong>
+            <span>әр сұрақта жауап нұсқасы</span>
+          </div>
+          <div class="hero-stat">
+            <strong>1</strong>
+            <span>әр сұрақта дұрыс жауап</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="chapters">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Тараулар</div>
+          <h2 class="section-title">Дафт кітабы бойынша 22 тарау</h2>
+          <p class="section-desc">
+            Әр тарау жеке ашылады. Тесттер мазмұндық ұғымдарға, басқару процестеріне,
+            ұйымдық құрылымға, шешім қабылдауға, билікке, мотивацияға, бақылауға,
+            инновацияға және басқа КТ бағыттарына сүйеніп құрастырылады.
+          </p>
+        </div>
+      </div>
+
+      <div class="chapter-grid">
+        <a class="chapter-card" href="#chapter-1">
+          <div class="chapter-num">01</div>
+          <h3>Менеджмент және ұйымдар</h3>
+          <span>Негізгі ұғымдар</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-2">
+          <div class="chapter-num">02</div>
+          <h3>Менеджмент эволюциясы</h3>
+          <span>Мектептер мен бағыттар</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-3">
+          <div class="chapter-num">03</div>
+          <h3>Ұйымдық орта және мәдениет</h3>
+          <span>Сыртқы және ішкі орта</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-4">
+          <div class="chapter-num">04</div>
+          <h3>Жаһандық ортадағы менеджмент</h3>
+          <span>Халықаралық басқару</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-5">
+          <div class="chapter-num">05</div>
+          <h3>Этика және әлеуметтік жауапкершілік</h3>
+          <span>Басқарушылық таңдау</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-6">
+          <div class="chapter-num">06</div>
+          <h3>Шағын бизнес және кәсіпкерлік</h3>
+          <span>Кәсіпкерлік басқару</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-7">
+          <div class="chapter-num">07</div>
+          <h3>Мақсаттар және жоспарлау</h3>
+          <span>Жоспарлау жүйесі</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-8">
+          <div class="chapter-num">08</div>
+          <h3>Стратегияны қалыптастыру</h3>
+          <span>Стратегиялық таңдау</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-9">
+          <div class="chapter-num">09</div>
+          <h3>Шешім қабылдау</h3>
+          <span>Басқарушылық шешімдер</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-10">
+          <div class="chapter-num">10</div>
+          <h3>Ұйымдық құрылым</h3>
+          <span>Құрылымды жобалау</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-11">
+          <div class="chapter-num">11</div>
+          <h3>Өзгеріс және инновация</h3>
+          <span>Жаңару процесі</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-12">
+          <div class="chapter-num">12</div>
+          <h3>Адам ресурстарын басқару</h3>
+          <span>Персонал жүйесі</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-13">
+          <div class="chapter-num">13</div>
+          <h3>Әртүрлілік және еңбек қатынастары</h3>
+          <span>Қызметкерлер ортасы</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-14">
+          <div class="chapter-num">14</div>
+          <h3>Мотивация негіздері</h3>
+          <span>Қажеттілік және ынталандыру</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-15">
+          <div class="chapter-num">15</div>
+          <h3>Лидерлік</h3>
+          <span>Билік және ықпал</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-16">
+          <div class="chapter-num">16</div>
+          <h3>Коммуникация</h3>
+          <span>Ақпарат алмасу</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-17">
+          <div class="chapter-num">17</div>
+          <h3>Топтар және командалар</h3>
+          <span>Топтық жұмыс</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-18">
+          <div class="chapter-num">18</div>
+          <h3>Сапа және өнімділік</h3>
+          <span>Операциялық нәтиже</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-19">
+          <div class="chapter-num">19</div>
+          <h3>Ақпараттық технологиялар</h3>
+          <span>Басқарушылық ақпарат</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-20">
+          <div class="chapter-num">20</div>
+          <h3>Бақылау жүйелері</h3>
+          <span>Стандарт және түзету</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-21">
+          <div class="chapter-num">21</div>
+          <h3>Операциялық басқару</h3>
+          <span>Процесс және ресурс</span>
+        </a>
+
+        <a class="chapter-card" href="#chapter-22">
+          <div class="chapter-num">22</div>
+          <h3>Басқару тиімділігі</h3>
+          <span>Ұйым нәтижелілігі</span>
+        </a>
+      </div>
+    </section>
